@@ -7,7 +7,7 @@ This tutorial provides a guide to and examples of how to do develop a new (custo
 
 ## Some background on evaluation metrics
 
-When evaluating a chap-compatible model with chap, the model will give some `samples` for every `time_period` (e.g. a week in some year) for every `location` (e.g. a district in a country). An important detail is that this is done for different **split points** in the dataset. For each such split point, the model will predict a certain number of periods (e.g. weeks a head).
+When evaluating a chap-compatible model with chap, the model will give some prediction `samples` for every `time_period` (e.g. a week in some year) for every `location` (e.g. a district in a country). An important detail is that this is done for different train-test **split points** in the dataset. For each such split point, the model will predict a certain number of periods (e.g. weeks a head).
 
 This means that every predicted disease case can be tied to four variables:
 
@@ -20,15 +20,15 @@ When dealing with metrics in chap, we represent all this information using a "fl
 
 ```
   location time_period  horizon_distance  sample  forecast
-0     loc1    2023-W01                 1       1        10
-1     loc1    2023-W02                 2       1        12
-2     loc2    2023-W01                 1       1        21
-3     loc2    2023-W02                 2       1        23
+0     loc1    2023-W01                 1       0        10
+1     loc1    2023-W02                 2       0        12
+2     loc2    2023-W01                 1       0        21
+3     loc2    2023-W02                 2       0        23
 ```
 
 From the above data, we can see that the model just gave one sample for each location/time_period/horizon_distance combination. Also, there was only one split point (and two horizon distances, meaning the model predicted two weeks ahead). Note that all this could vary based on the evaluation setup and the model.
 
-The "true" observations can be represented in a similar way, except that we don't need to represent the sample index for true observations:
+The "true" observations can be represented in a similar way, except that we don't need to represent the sample index or horizon distance for true observations:
 
 ```
   location time_period  disease_cases
